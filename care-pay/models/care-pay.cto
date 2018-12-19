@@ -1,0 +1,38 @@
+/**
+ * A business network where members can grant/revoke access to their personal information to other members
+ */
+
+namespace org.carepay
+asset Hash identified by hash{
+  o String tx_description
+  o String hash
+  o String pointer
+  --> Patient patient
+}
+
+abstract participant Org identified by org_id {
+  o String org_id
+  o String name
+}
+
+participant Provider extends Org {
+  --> Payor payor optional
+}
+
+participant Payor extends Org {
+  --> Provider[] provider optional
+}
+  
+asset Patient identified by patient_id{
+  o String patient_id
+  --> Provider provider
+  --> Payor payor
+}
+
+/* Example smart contract instance
+transaction Offer {
+  o Double bidPrice
+  --> VehicleListing listing
+  --> Member member
+}
+*/

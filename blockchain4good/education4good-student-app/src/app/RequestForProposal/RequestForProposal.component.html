@@ -1,0 +1,121 @@
+<div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addAssetModalLabel">Request funding</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+              <div class="form-group text-left">
+                <label for="courseId">courseId</label>
+                
+                    <textarea formControlName="courseId" class="form-control" rows="3"></textarea>
+                
+              </div>
+              <div class="form-group text-left">
+                <label for="rfpId">rfpId</label>
+                
+                  <input formControlName="rfpId" type="text" class="form-control">
+                
+              </div>
+           
+              <div class="form-group text-left">
+                <label for="fundAmt">fundAmt</label>
+                
+                  <input formControlName="fundAmt" type="number" class="form-control">
+                
+              </div>
+              <div class="form-group text-left">
+                <label for="benefits">benefits</label>
+                
+                  <input formControlName="benefits" type="text" class="form-control">
+                
+              </div>
+              <div class="form-group text-left">
+                <label for="timelines">timelines</label>
+                
+                  <input formControlName="timelines" type="text" class="form-control">
+                
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button (click)="addRequest(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+  <h1 id='assetName'>Requests for funding</h1>
+  <div class="row">
+    <div class="col-md-12 text-right">
+      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">Request funding</button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered table-responsive table-striped">
+        <thead class="thead">
+          <tr class="thead-cols">
+            
+                <th class="info">courseId</th>
+            
+                <th class="info">studId</th>
+            
+                <th class="info">rfpId</th>
+            
+                <th class="info">status</th>
+            
+                <th class="info">fundAmt</th>
+            
+                <th class="info">benefits</th>
+            
+                <th class="info">timelines</th>
+            
+                <th class="info">intrestedParty</th>
+            
+                <th class="info">selectedInvestor</th>
+            
+              <th class="info">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let asset of allAssets">
+
+            
+                <td>{{asset.courseId}}</td>
+            
+                <td>{{asset.studId}}</td>
+            
+                <td>{{asset.rfpId}}</td>
+            
+                <td>{{asset.status}}</td>
+            
+                <td>{{asset.fundAmt}}</td>
+            
+                <td>{{asset.benefits}}</td>
+            
+                <td>{{asset.timelines}}</td>
+            
+                <td>{{asset.intrestedParty}}</td>
+            
+                <td>{{asset.selectedInvestor}}</td>
+            
+            <td>
+              <button (click)="showInterest(asset.rfpId);" type="button" class="btn btn-success" data-toggle="modal" data-target="#showInterestAssetModal">Show Interest</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>The 'show interest'-button simulates the investor side showing interest in investing. Uses hardcoded investor ID.</p>  
+    </div>
+  </div>
+</div>

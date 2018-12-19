@@ -1,0 +1,34 @@
+    <app-page-header [heading]="'Contracts'" [icon]="'fa-edit'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Contracts List
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Recipient account </th>
+                            <th>Owner account</th>
+                            <th>Owner name</th>
+                            <th>New owner Name</th>
+                            <th>Cheque</th>
+                            <th>State</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let contract of allContracts | async">
+                            <td>{{contract.compte_beneficier}}</td>
+                            <td>{{contract.compte_owner}}</td>
+                            <td>{{contract.owner}}</td>
+                            <td>{{contract.newowner}}</td>
+                            <td>{{contract.cheque}}</td>
+                            <td>{{contract.validation}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,64 @@
+
+namespace org.acme.model
+
+/**
+ * Asset
+ * StudentIdentity
+ */
+asset StudentIdentity identified by assetKey {
+  o Student owner
+  o String assetKey
+  o Double gpa
+  o Boolean decision
+  o Double satScore
+
+}
+
+/**
+  * Participants
+ */
+participant Student identified by studentKey {
+  o String name
+  o String address
+  o String ssn 
+  o String studentKey
+}
+
+participant HighSchool identified by highSchoolKey {
+  o String highSchoolKey
+}
+
+participant University identified by universityKey {
+  o String universityKey
+}
+
+participant BoardOfEducation identified by boeKey {
+  o String boeKey
+}
+
+
+/**
+  * Transactions
+ */
+transaction UpdateIdentityByStudent {
+  --> StudentIdentity identity
+  --> Student owner
+}
+
+transaction UpdateIdentityByHighSchool {
+  --> StudentIdentity identity
+  --> HighSchool highSchool
+  o Double studentGpa
+}
+
+transaction UpdateIdentityByUniversity {
+  --> StudentIdentity identity
+  --> University university
+  o Boolean decision
+}
+
+transaction UpdateIdentityByBoardOfEducation {
+  --> StudentIdentity identity
+  --> BoardOfEducation boardOfEducation
+  o Integer satScore
+}

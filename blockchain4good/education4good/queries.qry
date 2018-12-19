@@ -1,0 +1,38 @@
+query getAllStudents {
+  description: "Query all the students"
+  statement:
+    SELECT org.edu.Student
+      ORDER BY [lastName ASC, firstName ASC, country ASC]
+}
+
+query getAllInvestors {
+  description: "Query all the investors"
+  statement:
+    SELECT org.edu.Investor
+      ORDER BY [lastName ASC, firstName ASC]
+}
+
+query getAllUniversities {
+  description: "Query all the universities"
+  statement:
+    SELECT org.edu.University 
+      ORDER BY [name ASC]
+}
+
+query getAllRequestForProposals{
+    description: "Query all the RequestForProposals"
+    statement:
+        SELECT org.edu.RequestForProposal
+          ORDER BY [rfpId ASC]
+}
+
+/**
+ Get all the RFPs from a student
+ */
+query getAllRequestForProposalsForStudent {
+  description: "Get all the RFPs that are open i.e. don't have a selectedInvestor"
+  statement:
+    SELECT org.edu.RequestForProposal
+      WHERE ( studId == _$student )
+}
+

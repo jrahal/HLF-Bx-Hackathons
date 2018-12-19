@@ -1,0 +1,123 @@
+<div class="container-contact100">
+
+  <div class="wrap-contact100" *ngIf="!secondScreen">
+    <form class="contact100-form validate-form">
+      <span class="contact100-form-title">
+        Create Your Identity
+      </span>
+
+      <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+        <input class="input100" type="text" name="name" placeholder="Full Name" [(ngModel)]="name">
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="wrap-input100 validate-input" data-validate = "Please enter email: e@a.x">
+        <input class="input100" type="text" name="email" placeholder="Email" [(ngModel)]="email">
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+        <input class="input100" type="text" name="name" placeholder="Address" [(ngModel)]="address">
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="wrap-input100 validate-input" data-validate="Please enter your name">
+        <input class="input100" type="text" name="name" placeholder="Date of Birth" [(ngModel)]="dob">
+        <span class="focus-input100"></span>
+      </div>
+
+      <div class="container-contact100-form-btn">
+        <button class="contact100-form-btn" (click)="submitForm($event)">
+          Create Identity
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="limiter" *ngIf="secondScreen">
+      <div class="container-table100">
+        <div class="wrap-table100">
+            <div class="container-contact100-form-btn">
+                <button class="contact100-form-btn" (click)="refreshData($event)">
+                  Refresh Data
+                </button>
+              </div>
+            <div class="table" *ngIf="refreshed">
+              
+              <div class="row header">
+                <div class="cell">
+                  Field
+                </div>
+                <div class="cell">
+                  Value
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="cell" data-title="Full Name">
+                    Full Name
+                  </div>
+                  <div class="cell" data-title="Age">
+                    {{name}}
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="cell" data-title="Full Name">
+                      Your Identity Key
+                    </div>
+                    <div class="cell" data-title="Job Title">
+                      {{assetKey}}
+                    </div>
+                  </div>
+  
+              <div class="row">
+                <div class="cell" data-title="Full Name">
+                  Address
+                </div>
+                <div class="cell" data-title="Age">
+                  {{address}}
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="cell" data-title="Full Name">
+                  Date of Birth
+                </div>
+                <div class="cell" data-title="Age">
+                  {{dob}}
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="cell" data-title="Full Name">
+                  Email
+                </div>
+                <div class="cell" data-title="Age">
+                  {{email}}
+                </div>
+              </div>
+
+              <div class="row">
+                  <div class="cell" data-title="Full Name">
+                    GPA
+                  </div>
+                  <div class="cell" data-title="Job Title">
+                    {{gpa}}
+                  </div>
+                </div>
+  
+                <div class="row">
+                    <div class="cell" data-title="Full Name">
+                      SAT Scores
+                    </div>
+                    <div class="cell" data-title="Job Title">
+                      {{satScore}}
+                    </div>
+                  </div>
+    
+
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

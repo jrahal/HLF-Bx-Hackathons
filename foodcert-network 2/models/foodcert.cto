@@ -1,0 +1,143 @@
+/**
+ * Sample business network definition.
+ */
+namespace org.acme.foodcertnetwork
+
+asset Meat identified by meatId {
+  o String meatId
+  --> Farmer owner
+}
+
+/**
+* An enumerated type
+*/
+enum MeatType {
+o POULTRY
+o BEEF
+o LAMB
+}
+
+enum CertificateType {
+o ANIMAL
+o PROCESS
+o PRODUCT
+o SALE
+}
+
+participant Auditor identified by auditorId {
+    o String auditorId
+    o String auditorName
+    o Double latitude
+    o Double longitude
+    o String placeName
+}   
+
+asset AuditorAsset identified by auditorAssetId {
+    o String auditorAssetId
+    o String complianceCheck
+    o CertificateType certificateType
+    o String certificateNumber
+    o DateTime certificateDate
+}
+
+participant Farmer identified by farmerId {
+    o String farmerId
+    o String firstName
+    o String lastName
+    o Double latitude
+    o Double longitude
+    o String placeName
+}   
+
+asset FarmerAsset identified by farmerAssetId {
+    o String farmerAssetId
+    o MeatType meatType
+    o Double quantity
+    o DateTime sellingDate
+    o Integer weight
+    --> AuditorAsset audit
+    o Double price
+}    
+
+participant SlaughterHouse identified by slaughterHouseId {
+    o String slaughterHouseId
+    o String slaughterHouseName
+    o Double latitude
+    o Double longitude
+    o String placeName
+}   
+
+asset SlaughterHouseAsset identified by slaughterHouseAssetId {
+    o String slaughterHouseAssetId
+    o MeatType meatType
+    o String methodOfSlaughter
+    o Double quantity
+    o DateTime sellingDate
+    o Integer weight
+    --> AuditorAsset audit
+    o Double price
+}   
+
+participant FoodProducer identified by foodProducerId {
+    o String foodProducerId
+    o String foodProducerName
+    o Double latitude
+    o Double longitude
+    o String placeName
+}
+
+asset FoodProducerAsset identified by FoodProducerAssetId {
+    o String FoodProducerAssetId
+    o Double quantity
+    o DateTime sellingDate
+    o Integer weight
+    o String complianceCheck
+    o SlaughterHouseAsset[] ingredients
+    o Double[] ingredientsPrice
+    o CertificateType[] inCertificateTypes
+    o CertificateType outCertificateType
+    o String certificateNumber
+    o DateTime certificateDate
+    o Double price
+}   
+
+participant Retailer identified by retailerId {
+    o String retailerId
+    o String retailerName
+    o Double latitude
+    o Double longitude
+    o String placeName
+}
+
+asset RetailerAsset identified by retailerAssetId {
+    o String retailerAssetId
+    o DateTime sellingDate
+    o String complianceCheck
+    o FoodProducerAsset[] products
+    o Double[] inProductsPrice
+    o CertificateType[] inCertificateTypes
+    o CertificateType outCertificateType
+    o String certificateNumber
+    o DateTime certificateDate
+    o Double[] sellingPrice
+}   
+
+transaction CertifyMeat {
+  --> AuditorAsset auditResult
+  --> FarmerAsset farmerAsset
+}
+
+transaction CertifyProcess {
+  --> Auditor auditor
+  --> SlaughterHouseAsset slaughterHouseAsset
+}
+
+transaction CertifyProduct {
+  --> Auditor auditor
+  --> FoodProducerAsset foodProducerAsset
+}
+
+transaction CertifyRetailer {
+  --> Auditor auditor
+  --> FarmerAsset farmerAsset
+}

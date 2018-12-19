@@ -1,0 +1,37 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Banks'" [icon]="'fa-table'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Bank List
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Bank Name</th>
+                            <th>Bank Code</th>
+                            <th>Address</th>
+                            <th>Agency</th>
+                            <th>Central bank</th>
+                            <th>Contracts</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let bank of allBanks | async">
+                            <td>{{bank.Idbanque}}</td>
+                            <td>{{bank.name}}</td>
+                            <td>{{bank.adresse}}</td>
+                            <td>{{bank.Idagence}}</td>
+                            <td>{{bank.BC}}</td>
+                            <td><button type="button" class="btn btn-info" (click)="getTransactionsByBank(bank.contracts)" *ngIf="bank.contracts.length>-1">Transactions</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

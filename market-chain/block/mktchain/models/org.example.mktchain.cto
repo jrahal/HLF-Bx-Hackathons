@@ -1,0 +1,93 @@
+
+/**
+ * Write your model definitions here
+ */
+namespace org.example.mktchain
+/**
+ * A business network for shipping perishable goods
+ * The cargo is temperature controlled and contracts
+ * can be negociated based on the temperature
+ * readings received for the cargo
+ */
+
+
+ asset Product identified by id {
+   o String name
+   o String id
+   o String price
+   o DateTime origin
+   --> Business owner
+ }
+
+/**
+ * The status of a shipment
+ */
+enum ShipmentStatus {
+  o CREATED
+  o IN_TRANSIT
+  o ARRIVED
+}
+
+/**
+ * An abstract transaction that is related to a Shipment
+ */
+abstract transaction ShipmentTransaction {
+  --> Shipment shipment
+}
+
+
+
+/**
+ * A notification that a shipment has been received by the
+ * buyer and that funds should be transferred from the buyer
+ * to the seller.
+ */
+transaction ShipmentReceived extends ShipmentTransaction {
+}
+
+
+/**
+ * A shipment being tracked as an asset on the ledger
+ */
+asset Shipment identified by shipmentId {
+  o String shipmentId
+  o Product[] type
+  o ShipmentStatus status
+  --> Contract contract
+  o Double shipmentPrice
+}
+
+/**
+ * Defines a contract between a Grower and an Importer to ship using
+ * a Shipper, paying a set unit price. The unit price is multiplied by
+ * a penality factor proportional to the deviation from the min and max
+ * negociated temperatures for the shipment.
+ */
+asset Contract identified by contractId {
+  o String contractId
+  --> Business buyer
+  --> Business seller
+  o DateTime arrivalDateTime
+  o Double totalPrice
+}
+
+/**
+ * A concept for a simple street address
+ */
+concept Address {
+  o String city optional
+  o String country
+  o String street optional
+  o String zip optional
+}
+
+/**
+ * A participant type in this business network
+ */
+participant Business identified by email {
+  o String email
+  o Address address
+  o Double accountBalance
+  o String type
+  o String name
+}

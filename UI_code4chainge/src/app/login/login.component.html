@@ -1,0 +1,18 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="assets/images/logoRedlean.png" width="150px" class="user-avatar" />
+            <!-- <h1>Redlean services</h1> -->
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="myLogin" class="form-control input-underline input-lg" placeholder="Login">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
+                    </div>
+                </div>
+                <a class="btn rounded-btn" (click)="onLoggedin()"> Log in </a>
+        </div>
+    </div>
+</div>

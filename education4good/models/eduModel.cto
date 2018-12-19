@@ -1,0 +1,89 @@
+/**
+ * New model file
+ */
+
+namespace org.edu
+
+participant Student identified by studId {
+o String studId
+o String name
+o String country
+o String description
+--> Course[] courseList
+--> RequestForProposal[] rfps
+--> EducationalContract[] contr
+}
+
+participant Investor identified by investorId {
+o String investorId
+o String name
+o String investorProfile
+--> EducationalContract[] contr
+--> RequestForProposal[] rfps  
+}
+
+participant University identified by uniId {
+o String uniId
+o String name
+}
+
+asset Course identified by courseId {
+o String courseId
+o String courseCost
+o String courseDuration
+o String courseTitle
+--> University uniId
+}
+
+
+asset RequestForProposal identified by rfpId {
+--> Course courseId
+--> Student studId
+o String rfpId
+o String status
+o Integer fundAmt
+o String benefits
+o String timelines
+--> Investor[] intrestedParty
+--> Investor selectedInvestor
+}
+
+
+asset EducationalContract identified by contractId{
+ o String contractId
+ o String contractType
+ o String status
+ o Integer fundAgreed
+ o Integer fundReleased
+ --> Course courseId
+ --> Student studId
+ --> Investor investorId
+}
+
+transaction RequestForSponsorship {
+  o RequestForProposal rfp
+}
+
+event ReqForSponsorEvent {
+  --> RequestForProposal rfp
+}
+
+transaction ExpressInterest {
+  --> RequestForProposal rfp
+  o String investorId
+}
+
+event InterestExpressedEvent {
+  --> RequestForProposal rfp
+  o String investorId
+}
+
+transaction CloseRfp {
+  --> RequestForProposal rfp
+}
+
+event NotifyNewContractEvent {
+  --> RequestForProposal rfp
+  --> EducationalContract eduContract
+}
+

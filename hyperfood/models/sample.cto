@@ -1,0 +1,78 @@
+/** * Sample business network definition.
+ */
+namespace org.hyperfood
+
+enum PesticideType {
+  o NATURAL
+  o CHEMICAL
+}
+
+enum Status {
+ o PLANTED
+ o GERMINATING
+ o READYFORHARVEST
+ o HARVESTED
+ o SHIPPED
+ o DELIVERED
+}
+
+asset Product identified by productId {
+  o String productId
+  o String waterPh
+  o String seeds
+  o PesticideType[] pesticides
+  o String soil
+  o String[] fertilizer
+  o String origin
+  o Status status
+  --> Producer producer
+  --> Audit[] audits optional
+}
+
+asset Audit identified by auditId {
+  o String auditId
+  o DateTime date
+  o Boolean success
+  o String notes
+  --> Auditor auditor
+}
+
+participant Producer identified by producerId 
+{
+  o String producerId
+  o String firstName
+  o String lastName
+  o String address
+}
+
+participant Auditor identified by auditorId {
+  o String auditorId
+  o String firstName
+  o String lastName
+  o String organization
+}
+
+transaction changeProductStatus {
+  --> Product product
+  o String newStatus
+}
+
+transaction auditProduct {
+  o DateTime date
+  o Boolean success
+  o String notes
+  --> Product product
+  --> Auditor auditor
+}
+
+event ProductStatusChanged {
+  o Status oldStatus
+  o Status newStatus
+  --> Product product
+} 
+
+event ProductAudited {
+  o DateTime date
+  --> Product product
+  --> Auditor auditor
+}
